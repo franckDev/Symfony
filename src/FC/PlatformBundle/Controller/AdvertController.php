@@ -64,7 +64,7 @@ class AdvertController extends Controller
 	{
 		// On récupère le service
 		$antispam = $this->container->get('fc_platform.antispam');
-		var_dump($antispam->getLocale());
+		
 		// Je pars du principe que $text contient le texte d'un message quelconque
 		$text = '..................................................';
 		if ($antispam->isSpam($text)) {
