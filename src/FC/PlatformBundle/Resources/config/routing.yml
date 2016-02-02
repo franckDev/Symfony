@@ -1,0 +1,29 @@
+# src/FC/PlatformBundle/Resources/config/routing.yml
+
+fc_platform_home:
+    path:        /{page}
+    defaults:    { _controller: FCPlatformBundle:Advert:index, page: 1 }
+    requirements:
+        page: \d*
+
+fc_platform_view:
+    path:        /advert/{id}
+    defaults:    { _controller: FCPlatformBundle:Advert:view }
+    requirements:
+        id: \d+
+
+fc_platform_add:
+    path:       /add
+    defaults:   { _controller: FCPlatformBundle:Advert:add }
+
+fc_platform_edit:
+    path:       /edit/{id}
+    defaults:   { _controller: FCPlatformBundle:Advert:edit }
+    requirements:
+        id: \d+
+
+fc_platform_delete:
+    path:       /delete/{id}
+    defaults:   { _controller: FCPlatformBundle:Advert:delete }
+    requirements:
+        id: \d+

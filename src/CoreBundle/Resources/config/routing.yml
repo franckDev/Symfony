@@ -1,0 +1,9 @@
+# src/CoreBundle/Resources/config/routing.yml
+
+corebundle_home:
+    path:        /
+    defaults:    { _controller: CoreBundle:Home:index }
+
+corebundle_contact:
+    path:        /contact
+    defaults:    { _controller: CoreBundle:Home:contact }

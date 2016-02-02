@@ -1,0 +1,6 @@
+# src/FC/PlatformBundle/Resources/config/services.yml
+
+services:
+    fc_platform.antispam:
+        class:    FC\PlatformBundle\Antispam\FCAntispam
+        arguments: ["@mailer", %locale%, 50]
