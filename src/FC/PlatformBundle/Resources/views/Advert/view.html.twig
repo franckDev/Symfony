@@ -7,14 +7,41 @@
 {% endblock %}
 
 {% block fcplatform_body %}
-	
-	<h2>{{ advert.title }}</h2>
-	<i>Par {{ advert.author }}, le {{ advert.date|date('d/m/Y') }}</i>
-
+	<div class="row">
+		<div class="col-md-12">
+			{# On vérifie qu'une image soit bien associée à l'annonce #}
+			{% if advert.image is not null %}
+				<div class="col-md-3">
+					<img src="{{ advert.image.url }}" alt="{{ advert.image.alt }}" width="190" height="80">
+				</div>	
+			{% endif %}
+				<div class="col-md-9">
+					<h2>{{ advert.title }}</h2>
+					<i>Par {{ advert.author }}, le {{ advert.date|date('d/m/Y') }}</i>
+				</div>
+		</div>
+	</div>
 	<div class="well">
 		{{ advert.content }}
 	</div>
-
+	<div class="row">
+		<div class="col-md-12">
+			<h2>Candidatures</h2>
+			<table>
+			{# On vérifie si il y a des candidatures associées à l'annonce #}
+			{% if listApplications is not null %}	
+				{% for application in listApplications %}
+					<tr><td><b>Prénom :</b> {{ application.author }}</td></tr>
+					<tr><td><b>Commentaire :</b> {{ application.content }}</td></tr>
+				{% endfor %}
+			{% endif %}
+			</table>
+		</div>
+	</div>
+	<br>
+	<br>
+	<br>
+	<br>
 	<p>
 		<a href="{{ path('fc_platform_home') }}" class="btn btn-default">
 			<i class="glyphicon glyphicon-chevron-left"></i>

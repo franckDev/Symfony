@@ -1,4 +1,5 @@
 <?php
+// src/FC/PlatformBundle/Entity/Advert
 
 namespace FC\PlatformBundle\Entity;
 
@@ -12,6 +13,11 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Advert
 {
+    /**
+      * @ORM\OneToOne(targetEntity="FC\PlatformBundle\Entity\Image", cascade={"persist"})
+      */
+    private $image;
+    
     /**
      * @var int
      *
@@ -49,6 +55,17 @@ class Advert
      */
     private $content;
 
+    /**
+     *
+     * @ORM\Column(name="published", type="boolean")
+     */
+    private $published = true;
+
+    public function __construct()
+    {
+        // Par défaut, la date de l'annonce est la date d'aujourd'hui
+        $this->date = new \DateTime();
+    }
 
     /**
      * Get id
@@ -155,5 +172,52 @@ class Advert
     {
         return $this->content;
     }
-}
 
+    /**
+     * Set published
+     *
+     * @param boolean $published
+     *
+     * @return Advert
+     */
+    public function setPublished($published)
+    {
+        $this->published = $published;
+    
+        return $this;
+    }
+
+    /**
+     * Get published
+     *
+     * @return boolean
+     */
+    public function getPublished()
+    {
+        return $this->published;
+    }
+
+    /**
+     * Set image
+     *
+     * @param \FC\PlatformBundle\Entity\Image $image
+     *
+     * @return Advert
+     */
+    public function setImage(\FC\PlatformBundle\Entity\Image $image = null)
+    {
+        $this->image = $image;
+    
+        return $this;
+    }
+
+    /**
+     * Get image
+     *
+     * @return \FC\PlatformBundle\Entity\Image
+     */
+    public function getImage()
+    {
+        return $this->image;
+    }
+}
