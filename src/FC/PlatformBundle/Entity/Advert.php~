@@ -62,7 +62,6 @@ class Advert
         // Par défaut, la date de l'annonce est la date d'aujourd'hui
         $this->date = new \DateTime();
         $this->categories = new ArrayCollection();
-        $this->applications = new ArrayCollection();
     }
 
     /**
@@ -271,41 +270,4 @@ class Advert
      */
     private $applications; // Notez le " s ", une annonce est liée à plusieurs candidatures
     
-
-    /**
-     * Add application
-     *
-     * @param \FC\PlatformBundle\Entity\Application $application
-     *
-     * @return Advert
-     */
-    public function addApplication(Application $application)
-    {
-        $this->applications[] = $application;
-
-        // On lie l'annonce à la candidature
-        $application->setAdvert($this);
-    
-        return $this;
-    }
-
-    /**
-     * Remove application
-     *
-     * @param \FC\PlatformBundle\Entity\Application $application
-     */
-    public function removeApplication(Application $application)
-    {
-        $this->applications->removeElement($application);
-    }
-
-    /**
-     * Get applications
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getApplications()
-    {
-        return $this->applications;
-    }
 }

@@ -14,7 +14,7 @@ use Doctrine\ORM\Mapping as ORM;
 class Application
 {
     /**
-     * @ORM\ManyToOne(targetEntity="FC\PlatformBundle\Entity\Advert")
+     * @ORM\ManyToOne(targetEntity="FC\PlatformBundle\Entity\Advert",inversedBy="applications")
      * @ORM\JoinColumn(nullable=false)
      */
     private $advert;
