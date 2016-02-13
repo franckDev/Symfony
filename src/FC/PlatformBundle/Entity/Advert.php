@@ -3,6 +3,7 @@
 
 namespace FC\PlatformBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -13,11 +14,6 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Advert
 {
-    /**
-      * @ORM\OneToOne(targetEntity="FC\PlatformBundle\Entity\Image", cascade={"persist"})
-      */
-    private $image;
-    
     /**
      * @var int
      *
@@ -65,6 +61,7 @@ class Advert
     {
         // Par défaut, la date de l'annonce est la date d'aujourd'hui
         $this->date = new \DateTime();
+        $this->categories = new ArrayCollection();
     }
 
     /**
@@ -198,6 +195,11 @@ class Advert
     }
 
     /**
+      * @ORM\OneToOne(targetEntity="FC\PlatformBundle\Entity\Image", cascade={"persist"})
+      */
+    private $image;
+
+    /**
      * Set image
      *
      * @param \FC\PlatformBundle\Entity\Image $image
@@ -219,5 +221,47 @@ class Advert
     public function getImage()
     {
         return $this->image;
+    }
+
+    /**
+      * @ORM\ManyToMany(targetEntity="FC\PlatformBundle\Entity\Category", cascade={"persist"})
+      */
+    private $categories;
+
+    /**
+     * Add category
+     *
+     * @param \FC\PlatformBundle\Entity\Category $category
+     *
+     * @return Advert
+     */
+
+    // Notez le singulier, on ajoute une seule catégorie à la fois
+    public function addCategory(Category $category)
+    {
+        // Ici on utilise l'ArrayCollection vraiment comme un tableau
+        $this->categories[] = $category;
+    
+        return $this;
+    }
+
+    /**
+     * Remove category
+     *
+     * @param \FC\PlatformBundle\Entity\Category $category
+     */
+    public function removeCategory(Category $category)
+    {
+        $this->categories->removeElement($category);
+    }
+
+    /**
+     * Get categories
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getCategories()
+    {
+        return $this->categories;
     }
 }

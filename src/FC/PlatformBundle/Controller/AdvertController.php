@@ -153,34 +153,53 @@ class AdvertController extends Controller
 
 	public function editAction($id, Request $request)
 	{
-		// Ici, on récupérera l'annonce correspondante à $id
-		$advert = array(
-			'title'	 => 'Recherche développeur Symfony2',
-			'id'	 =>	$id,
-			'author' =>	'Alexandre',
-			'content'=> 'Nous recherchons un développeur Symfony2 débutant sur Lyon. Blabla...',
-			'date'	 => new \Datetime()
-		);
+		$em = $this->getDoctrine()->getManager();
 
-		// Même mécanisme que pour l'ajout
-		if ($request->isMethod('POST')) {
-			$request->getSession()->getFlashBag()->add('notice', 'Annonce bien modifiée.');
+		// On récupère l'annonce $id
+		$advert = $em->getRepository('FCPlatformBundle:Advert')->find($id);
 
-			return $this->redirectToRoute('fc_platform_view', array('id' => $id));
+		if(null === $advert) {
+			throw new NotFoundHttpException("L'annonce d'id ".$id." n'existe pas.");
 		}
 
-		return $this->render('FCPlatformBundle:Advert:edit.html.twig', array(
-			'advert' => $advert
-		));
+		// La méthode findAll retourne toutes les catégories de la base de données
+		$listCategories = $em->getRepository('FCPlatformBundle:Category')->findAll();
+
+		// On boucle sur les catégories pour les lier à l'annonce
+		foreach ($listCategories as $category) {
+			$advert->addCategory($category);
+		}
+
+		// Pour persister le changement dans la relation, il faut persister l'entité propriétaire
+		// Ici, Advert est le propriétaire, donc inutile de la persister car on l'a récupérée depuis Doctrine
+
+		// Etape 2 : On déclenche l'enregistrement
+		$em->flush();
+
+		// ... reste de la méthode
 	}
 
 	public function deleteAction($id)
 	{
-		// Ici, on récupérera l'annonce correspondant à $id
+		$em = $this->getDoctrine()->getManager();
 
-		// Ici, on gérera la suppression de l'annonce en question
+		// On récupère l'annonce $id
+		$advert = $em->getRepository('FCPlatformBundle:Advert')->find($id);
 
-		return $this->render('FCPlatformBundle:Advert:delete.html.twig');
+		if(null === $advert) {
+			throw new NotFoundHttpException("L'annonce d'id ".$id." n'existe pas.");
+		}
+
+		// On boucle sur les catégories de l'annonce pour les supprimer
+		foreach ($advert->getCategories() as $category) {
+			$advert->removeCategory($category);
+		}
+
+		// Pour persister le changement dans la relation, il faut persister l'entité propriétaire
+		// Ici, Advert est le propriétaire, donc inutile de la persister car on l'a récupérée depuis Doctrine
+
+		// On déclenche la modification
+		$em->flush();
 	}
 
 	public function menuAction($limit)

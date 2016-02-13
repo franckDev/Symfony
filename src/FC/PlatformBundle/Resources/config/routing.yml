@@ -2,7 +2,7 @@
 
 fc_platform_home:
     path:        /{page}
-    defaults:    { _controller: FCPlatformBundle:Advert:index, page: 1 }
+    defaults:    { _controller: FCPlatformBundle:Advert:index, page:1 }
     requirements:
         page: \d*
 
