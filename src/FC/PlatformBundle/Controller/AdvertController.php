@@ -110,6 +110,14 @@ class AdvertController extends Controller
 
 		// On déclenche l'enregistrement
 		$em->flush();
+
+		// Reste de la méthode qu'on avait déjà écrit
+	    if ($request->isMethod('POST')) {
+	      $request->getSession()->getFlashBag()->add('notice', 'Annonce bien enregistrée.');
+	      return $this->redirect($this->generateUrl('fc_platform_view', array('id' => $advert->getId())));
+	    }
+
+	    return $this->render('FCPlatformBundle:Advert:add.html.twig');
 	}
 
 	public function editImageAction($advertId)
@@ -196,4 +204,12 @@ class AdvertController extends Controller
 			));
 	}
 
+	public function testAction()
+	{
+		$repository = $this->getDoctrine()->getManager()->getRepository('FCPlatformBundle:Advert');
+
+		$advert = $repository->find(1);
+
+		return $this->render('FCPlatformBundle:Test:index.html.twig', array('advert' => $advert));
+	}
 }

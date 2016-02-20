@@ -1,0 +1,45 @@
+{# src/FC/PlatformBundle/Resources/views/Test/index.html.twig #}
+
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+
+		<title>{% block title %}Accueil - Test - FC Plateforme{% endblock %}</title>
+
+		{% block stylesheets %}
+			{# On charge le CSS de bootstrap depuis le site directement #}
+			<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+		{% endblock %}
+	</head>
+
+	<body>
+		<div class="container">
+		    <div id="header" class="jumbotron">
+				<h1>{% block header %}Test Symfony{% endblock %}</h1>
+			</div>
+
+		    <div class="row">
+		      	
+		      	</div>
+		     	<div id="content" class="col-md-9">
+		        	{% block body %}
+		        		{{ advert.title }}
+		        	{% endblock %}
+		      	</div>
+		    </div>
+
+		    <hr>
+
+		    <footer>
+		      
+		    </footer>
+		</div>
+		{% block javascripts %}
+			{# Ajoutez ces lignes Javascript si vous comptez vous servir des fonctionnalités du Bootstrap Twitter #}
+			<script src="//ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+			<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+		{% endblock %}
+	</body>	
+</html>

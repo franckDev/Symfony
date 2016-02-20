@@ -1,4 +1,5 @@
 <?php
+// src/FC/PlatformBundle/Entity/AdvertSkill.php
 
 namespace FC\PlatformBundle\Entity;
 

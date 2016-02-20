@@ -33,3 +33,7 @@ fc_platform_delete:
     defaults:   { _controller: FCPlatformBundle:Advert:delete }
     requirements:
         id: \d+
+
+fc_platform_test:
+    path:       /test
+    defaults:   { _controller: FCPlatformBundle:Advert:test }
