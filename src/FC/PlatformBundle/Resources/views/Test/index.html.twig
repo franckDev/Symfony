@@ -4,15 +4,24 @@
 
 	{% block title %}Accueil - Test - FC Plateforme{% endblock %}
 
-	{% block header %}Page Test Symfony2{% endblock %}
+	{% block header %}Symfony2 <small>page test</small>{% endblock %}
 		{% block body %}
-        	<table>
-        		<tr>
-					<td>Le {{ advert.date | date('d/m/Y') }} par {{ advert.author }}</td>
-					<td><h4>{{ advert.title }}</h4></td>
-					<td>{{ advert.content }}</td>
-				</tr>
-			</table>
+			<div class="table-responsive">
+	        	<table class="table">
+					{#{% for advert in listAdverts %}
+	        		<tr>
+						<td>Le <i>{{ advert.date | date('d/m/Y') }}</i><br>par {{ advert.author }}</td>
+						<td><h4>{{ advert.title }}</h4></td>
+						<td class="end">{{ advert.content }}</td>
+					</tr>
+					{% endfor %}#}
+					<tr>
+						<td>Le <i>{{ advert.date | date('d/m/Y') }}</i><br>par {{ advert.author }}</td>
+						<td><h4>{{ advert.title }}</h4></td>
+						<td class="end">{{ advert.content }}</td>
+					</tr>
+				</table>
+			</div>
 		{% endblock %}
 		{% block javascripts %}
 			

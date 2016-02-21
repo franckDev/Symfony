@@ -209,12 +209,13 @@ class AdvertController extends Controller
 	{
 		$repository = $this->getDoctrine()->getManager()->getRepository('FCPlatformBundle:Advert');
 
-		// $advert = $repository->find(1);
-
-		// return $this->render('FCPlatformBundle:Test:index.html.twig', array('advert' => $advert));
-
-		$advert = $repository->findOneBy(array('author' => 'Boris'));
-
+			//$advert = $repository->findByAuthorAnDate('Boris', 2016);
+			$advert = $repository->myFindDQL(1);
+			
 		return $this->render('FCPlatformBundle:Test:index.html.twig', array('advert' => $advert));
+
+		// $listAdverts = $repository->myFindAll();
+
+		// return $this->render('FCPlatformBundle:Test:index.html.twig', array('listAdverts' => $listAdverts));
 	}
 }
