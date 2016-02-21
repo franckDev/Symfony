@@ -189,26 +189,31 @@ class AdvertController extends Controller
 
 	public function menuAction($limit)
 	{
-		// On fixe en dur une liste ici, bien entendu par la suite
-		// on la récupérera depuis la BDD !
-		$listAdverts = array(
-			array('id' => 2, 'title' => 'Recherche développeur Symfony2'),
-			array('id' => 5, 'title' => 'Mission de webmaster'),
-			array('id' => 9, 'title' => 'Offre de stage webdesigner')
-		);
+		$repository = $this->getDoctrine()->getManager()->getRepository('FCPlatformBundle:Advert');
 
+		$listAdverts = $repository->findBy(
+							array(),
+							array('date' => 'desc'),
+							$limit,
+							0
+						);
+		
 		return $this->render('FCPlatformBundle:Advert:menu.html.twig', array(
-			// Tout l'intérêt est ici : le contrôleur passe
-			// les variables nécessaires au template !
-			'listAdverts' => $listAdverts
-			));
+		// Tout l'intérêt est ici : le contrôleur passe
+		// les variables nécessaires au template !
+		'listAdverts' => $listAdverts
+		));
 	}
 
 	public function testAction()
 	{
 		$repository = $this->getDoctrine()->getManager()->getRepository('FCPlatformBundle:Advert');
 
-		$advert = $repository->find(1);
+		// $advert = $repository->find(1);
+
+		// return $this->render('FCPlatformBundle:Test:index.html.twig', array('advert' => $advert));
+
+		$advert = $repository->findOneBy(array('author' => 'Boris'));
 
 		return $this->render('FCPlatformBundle:Test:index.html.twig', array('advert' => $advert));
 	}
