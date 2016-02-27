@@ -18,7 +18,7 @@ class AppKernel extends Kernel
             new FC\PlatformBundle\FCPlatformBundle(),
             new CoreBundle\CoreBundle(),
         ];
-
+        
         if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {
             $bundles[] = new Symfony\Bundle\DebugBundle\DebugBundle();
             $bundles[] = new Symfony\Bundle\WebProfilerBundle\WebProfilerBundle();
