@@ -120,7 +120,7 @@ class AdvertController extends Controller
 	    return $this->render('FCPlatformBundle:Advert:add.html.twig');
 	}
 
-	public function editImageAction($advertId)
+	public function editimageAction($advert)
 	{
 		$em = $this->getDoctrine()->getManager();
 
@@ -207,15 +207,19 @@ class AdvertController extends Controller
 
 	public function testAction()
 	{
-		$repository = $this->getDoctrine()->getManager()->getRepository('FCPlatformBundle:Advert');
+		$listAdverts = $this
+			->getDoctrine()
+			->getManager()
+			->getRepository('FCPlatformBundle:Advert')
+			->getAdvertWithApplications();
 
-			//$advert = $repository->findByAuthorAnDate('Boris', 2016);
-			$advert = $repository->myFindDQL(1);
-			
-		return $this->render('FCPlatformBundle:Test:index.html.twig', array('advert' => $advert));
+		foreach ($listAdverts as $advert) {
+				# code...
+		}	
+		//return $this->render('FCPlatformBundle:Test:index.html.twig', array('advert' => $advert));
 
 		// $listAdverts = $repository->myFindAll();
 
-		// return $this->render('FCPlatformBundle:Test:index.html.twig', array('listAdverts' => $listAdverts));
+		return $this->render('FCPlatformBundle:Test:index.html.twig', array('listAdverts' => $listAdverts));
 	}
 }

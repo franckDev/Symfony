@@ -8,18 +8,18 @@
 		{% block body %}
 			<div class="table-responsive">
 	        	<table class="table">
-					{#{% for advert in listAdverts %}
+					{% for advert in listAdverts %}
 	        		<tr>
 						<td>Le <i>{{ advert.date | date('d/m/Y') }}</i><br>par {{ advert.author }}</td>
 						<td><h4>{{ advert.title }}</h4></td>
 						<td class="end">{{ advert.content }}</td>
 					</tr>
-					{% endfor %}#}
-					<tr>
+					{% endfor %}
+					{#<tr>
 						<td>Le <i>{{ advert.date | date('d/m/Y') }}</i><br>par {{ advert.author }}</td>
 						<td><h4>{{ advert.title }}</h4></td>
 						<td class="end">{{ advert.content }}</td>
-					</tr>
+					</tr>#}
 				</table>
 			</div>
 		{% endblock %}

@@ -16,11 +16,11 @@ fc_platform_add:
     path:       /add
     defaults:   { _controller: FCPlatformBundle:Advert:add }
 
-fc_platform_editImage:
-    path:       /editImage/{advertId}
-    defaults:   { _controller: FCPlatformBundle:Advert:editImage }
+fc_platform_editimage:
+    path:       /editimage/{advert}
+    defaults:   { _controller: FCPlatformBundle:Advert:editimage }
     requirements:
-        id: \d+
+        advert: \d+
 
 fc_platform_edit:
     path:       /edit/{id}
@@ -35,5 +35,5 @@ fc_platform_delete:
         id: \d+
 
 fc_platform_test:
-    path:       /test
-    defaults:   { _controller: FCPlatformBundle:Advert:test }
+    path:        /test
+    defaults:    { _controller: FCPlatformBundle:Advert:test }
