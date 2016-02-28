@@ -75,14 +75,15 @@ class AdvertController extends Controller
 
 	public function addAction(Request $request)
 	{
+		die("Enregistrement non autorisé !");
 		// On récupère l'EntityManager
 		$em = $this->getDoctrine()->getManager();
 
 		// Création de l'entité Advert
 		$advert = new Advert();
-		$advert->setTitle('Recherche développeur Symfony2.');
-		$advert->setAuthor('Alexandre');
-		$advert->setContent("Nous recherchons un développeur Symfony2 débutant sur Lyon.Blabla...");
+		$advert->setTitle('Titre');
+		$advert->setAuthor('Auteur');
+		$advert->setContent("Contenu");
 
 		// On récupère toutes les compétences possibles
 		$listSkills = $em->getRepository('FCPlatformBundle:Skill')->findAll();
@@ -103,6 +104,11 @@ class AdvertController extends Controller
 			// Et bien sùr, on persiste cette entité de relation, propriétaire des autres relations
 			$em->persist($advertSkill);
 		}
+
+		// On récupère une catégorie
+		$category = $em->getRepository('FCPlatformBundle:Category')->find(5);
+		// On définit la catégorie de l'annonce
+		$advert->addCategory($category);
 
 		// Doctrine ne connait pas encore l'entité $advert. Si vous n'avez pas définit la relation AdvertSkill
 		// avec un cascade persist (ce qui est le cas si vous avez utilisé mon code), alors on doit persister $advert
@@ -211,15 +217,8 @@ class AdvertController extends Controller
 			->getDoctrine()
 			->getManager()
 			->getRepository('FCPlatformBundle:Advert')
-			->getAdvertWithApplications();
-
-		foreach ($listAdverts as $advert) {
-				# code...
-		}	
-		//return $this->render('FCPlatformBundle:Test:index.html.twig', array('advert' => $advert));
-
-		// $listAdverts = $repository->myFindAll();
-
+			->getAdvertWithCategories(array('Développement web', 'Intégration'));
+		
 		return $this->render('FCPlatformBundle:Test:index.html.twig', array('listAdverts' => $listAdverts));
 	}
 }
