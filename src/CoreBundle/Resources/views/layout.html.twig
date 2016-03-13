@@ -12,6 +12,11 @@
 			{# On charge le CSS de bootstrap depuis le site directement #}
 			<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
 		{% endblock %}
+		{% block javascript %}
+			{# Ajoutez ces lignes Javascript si vous comptez vous servir des fonctionnalités du Bootstrap Twitter #}
+			<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script> 
+			<script type="text/javascript" src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+		{% endblock %}
 	</head>
 
 	<body>
@@ -34,6 +39,7 @@
 		      	</div>
 		     	<div id="content" class="col-sm-9">
 		        	{% block body %}
+
 		        	{% endblock %}
 		      	</div>
 		    </div>
@@ -44,15 +50,5 @@
 		      <p>{% block footer %}The sky's the limit © {{ 'now'|date('Y') }} and beyond.{% endblock %}</p>
 		    </footer>
 		</div>
-		{% block javascript %}
-			{# Ajoutez ces lignes Javascript si vous comptez vous servir des fonctionnalités du Bootstrap Twitter #}
-			<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
-			<script type="text/javascript" src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-			{# Ajoutez ces lignes Javascript si vous comptez vous servir de fosjsRouting #}
-			<script type="text/javascript" src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
-			<script type="text/javascript" src="{{ path('fos_js_routing_js', {'callback': 'fos.Router.setData'}) }}"></script>
-			<script src="/js/fos_js_routes.js"></script>
-		{% endblock %}
-		<script src="/js/fos_js_routes.js"></script>
 	</body>	
 </html>

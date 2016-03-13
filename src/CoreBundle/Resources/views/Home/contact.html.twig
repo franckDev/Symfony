@@ -8,6 +8,7 @@
 		<style>
 			p.bg-success{font-size:1em;height: 50px;background-color: #D7F3FC;border: 1px solid #5A87BA;color:#0096FF;text-align: center;line-height: 48px;margin-top:50%;margin-bottom:50%;}
 		</style>
+		<link rel="stylesheet" href="{{ asset('bundles/adesignscalendar/css/fullcalendar/fullcalendar.css') }}" />
 	</head>
 	<body>
 		<div class="row">
@@ -20,5 +21,15 @@
 				<a class="btn btn-primary" href="{{ path('corebundle_home') }}">Retour</a>
 			</div>
 		</div>
+		{% include 'ADesignsCalendarBundle::calendar.html.twig' %}
+		{% block javascript %}
+			{# Ajoutez ces lignes Javascript si vous comptez vous servir de fosjsRouting #}
+			<script type="text/javascript" src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
+			<script type="text/javascript" src="{{ path('fos_js_routing_js', {'callback': 'fos.Router.setData'}) }}"></script>
+			<script src="/js/fos_js_routes.js"></script>
+			<script type="text/javascript" src="{{ asset('bundles/adesignscalendar/js/jquery/jquery-1.8.2.min.js') }}"></script>
+			<script type="text/javascript" src="{{ asset('bundles/adesignscalendar/js/fullcalendar/jquery.fullcalendar.min.js') }}"></script>
+			<script type="text/javascript" src="{{ asset('bundles/adesignscalendar/js/calendar-settings.js') }}"></script>
+		{% endblock %}	
 	</body>	
 </html>
