@@ -126,7 +126,7 @@ class AdvertController extends Controller
 	    return $this->render('FCPlatformBundle:Advert:add.html.twig');
 	}
 
-	public function editimageAction($advert)
+	public function editimageAction($advertId)
 	{
 		$em = $this->getDoctrine()->getManager();
 
@@ -213,12 +213,21 @@ class AdvertController extends Controller
 
 	public function testAction()
 	{
-		$listAdverts = $this
-			->getDoctrine()
-			->getManager()
-			->getRepository('FCPlatformBundle:Advert')
-			->getAdvertWithCategories(array('Développement web', 'Intégration'));
+		// $em = $this->getDoctrine()->getManager();
+
+		// $application = new application();
+		// $application->setauthor('Maurice');
+		// $application->setContent('Bonjour, je viens vers vous car j\'ai trouvé votre annonce et je souhaite rejoindre votre équipe.');
+		// $application->setDate(new \Datetime());
+
+		// $advert = $em->getRepository('FCPlatformBundle:Advert')->find(2);
+
+		// $application->setAdvert($advert);
+
+		// $em->persist($application);
 		
-		return $this->render('FCPlatformBundle:Test:index.html.twig', array('listAdverts' => $listAdverts));
+		// $em->flush();
+
+		return new Response('Hello world !');
 	}
 }

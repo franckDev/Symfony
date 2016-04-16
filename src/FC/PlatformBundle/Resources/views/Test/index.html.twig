@@ -8,7 +8,7 @@
 		{% block body %}
 			<div class="table-responsive">
 	        	<table class="table">
-					{% for advert in listAdverts %}
+					{#{% for advert in listAdverts %}
 						{% for categorie in advert.categories %}
 		        		<tr>
 							<td>Le <i>{{ advert.date | date('d/m/Y') }}</i><br>par {{ advert.author }}</td>
@@ -16,12 +16,23 @@
 							<td class="end">{{ advert.content }}</td>
 						</tr>
 						{% endfor %}
-					{% endfor %}
+					{% endfor %}#}
 					{#<tr>
 						<td>Le <i>{{ advert.date | date('d/m/Y') }}</i><br>par {{ advert.author }}</td>
 						<td><h4>{{ advert.title }}</h4></td>
 						<td class="end">{{ advert.content }}</td>
 					</tr>#}
+					{% for image in images %}
+						
+							{% if image.id is even %}
+						<tr>
+								<td><img src="{{ image.url }}" alt="{{ image.alt }}"></td>
+							{% elseif image.id is odd %}
+								<td><img src="{{ image.url }}" alt="{{ image.alt }}"></td>
+						</tr>
+							{% endif %}
+						
+					{% endfor %}
 				</table>
 			</div>
 		{% endblock %}

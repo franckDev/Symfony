@@ -4,3 +4,9 @@ services:
     fc_platform.antispam:
         class:    FC\PlatformBundle\Antispam\FCAntispam
         arguments: ["@mailer", %locale%, 50]
+
+    # fc_platform.doctrine.notification:
+    #     class: FC\PlatFormBundle\DoctrineListener\ApplicationNotification
+    #     arguments: ["@mailer"]
+    #     tags:
+    #         - { name: doctrine.event_listener, event: postPersist }

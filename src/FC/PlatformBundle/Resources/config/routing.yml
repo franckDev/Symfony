@@ -17,7 +17,7 @@ fc_platform_add:
     defaults:   { _controller: FCPlatformBundle:Advert:add }
 
 fc_platform_editimage:
-    path:       /editimage/{advert}
+    path:       /editimage/{advertId}
     defaults:   { _controller: FCPlatformBundle:Advert:editimage }
     requirements:
         advert: \d+
