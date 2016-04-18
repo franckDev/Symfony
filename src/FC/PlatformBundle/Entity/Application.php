@@ -6,175 +6,108 @@ namespace FC\PlatformBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Application
- *
- * @ORM\Table(name="application")
  * @ORM\Entity(repositoryClass="FC\PlatformBundle\Repository\ApplicationRepository")
  * @ORM\HasLifecycleCallbacks()
  */
 class Application
 {
-    /**
-     * @ORM\ManyToOne(targetEntity="FC\PlatformBundle\Entity\Advert",inversedBy="applications")
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $advert;
-    
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="id", type="integer")
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="AUTO")
-     */
-    private $id;
+  /**
+   * @ORM\Column(name="id", type="integer")
+   * @ORM\Id
+   * @ORM\GeneratedValue(strategy="AUTO")
+   */
+  private $id;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="author", type="string", length=255)
-     */
-    private $author;
+  /**
+   * @ORM\Column(name="author", type="string", length=255)
+   */
+  private $author;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="content", type="text")
-     */
-    private $content;
+  /**
+   * @ORM\Column(name="content", type="text")
+   */
+  private $content;
 
-    /**
-     * @var \DateTime
-     *
-     * @ORM\Column(name="date", type="datetime")
-     */
-    private $date;
+  /**
+   * @ORM\Column(name="date", type="datetime")
+   */
+  private $date;
 
-    public function __construct()
-    {
-        $this->date = new \DateTime();
-    }
+  /**
+   * @ORM\ManyToOne(targetEntity="FC\PlatformBundle\Entity\Advert", inversedBy="applications")
+   * @ORM\JoinColumn(nullable=false)
+   */
+  private $advert;
 
-      /**
-     * @ORM\PrePersist
-     */
-    public function increase()
-    {
-        $this->getAdvert()->increaseApplication();
-    }
+  public function __construct()
+  {
+    $this->date = new \Datetime();
+  }
 
-    /**
-     * @ORM\PreRemove
-     */
-    public function decrease()
-    {
-        $this->getAdvert()->decreaseApplication();
-    }
-    
+  public function getId()
+  {
+    return $this->id;
+  }
 
-    /**
-     * Get id
-     *
-     * @return integer
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
+  public function setAuthor($author)
+  {
+    $this->author = $author;
+    return $this;
+  }
 
-    /**
-     * Set author
-     *
-     * @param string $author
-     *
-     * @return Application
-     */
-    public function setAuthor($author)
-    {
-        $this->author = $author;
-    
-        return $this;
-    }
+  public function getAuthor()
+  {
+    return $this->author;
+  }
 
-    /**
-     * Get author
-     *
-     * @return string
-     */
-    public function getAuthor()
-    {
-        return $this->author;
-    }
+  public function setContent($content)
+  {
+    $this->content = $content;
+    return $this;
+  }
 
-    /**
-     * Set content
-     *
-     * @param string $content
-     *
-     * @return Application
-     */
-    public function setContent($content)
-    {
-        $this->content = $content;
-    
-        return $this;
-    }
+  public function getContent()
+  {
+    return $this->content;
+  }
 
-    /**
-     * Get content
-     *
-     * @return string
-     */
-    public function getContent()
-    {
-        return $this->content;
-    }
+  public function setDate($date)
+  {
+    $this->date = $date;
 
-    /**
-     * Set date
-     *
-     * @param \DateTime $date
-     *
-     * @return Application
-     */
-    public function setDate($date)
-    {
-        $this->date = $date;
-    
-        return $this;
-    }
+    return $this;
+  }
 
-    /**
-     * Get date
-     *
-     * @return \DateTime
-     */
-    public function getDate()
-    {
-        return $this->date;
-    }
+  public function getDate()
+  {
+    return $this->date;
+  }
 
-    /**
-     * Set advert
-     *
-     * @param \FC\PlatformBundle\Entity\Advert $advert
-     *
-     * @return Application
-     */
-    public function setAdvert(\FC\PlatformBundle\Entity\Advert $advert)
-    {
-        $this->advert = $advert;
-    
-        return $this;
-    }
+  public function setAdvert(Advert $advert)
+  {
+    $this->advert = $advert;
 
-    /**
-     * Get advert
-     *
-     * @return \FC\PlatformBundle\Entity\Advert
-     */
-    public function getAdvert()
-    {
-        return $this->advert;
-    }
+    return $this;
+  }
+
+  public function getAdvert()
+  {
+    return $this->advert;
+  }
+
+  /**
+   * @ORM\PrePersist
+   */
+  public function increase()
+  {
+    $this->getAdvert()->increaseApplication();
+  }
+
+  /**
+   * @ORM\PreRemove
+   */
+  public function decrease()
+  {
+    $this->getAdvert()->decreaseApplication();
+  }
 }

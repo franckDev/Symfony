@@ -18,7 +18,8 @@ class AppKernel extends Kernel
             new FC\PlatformBundle\FCPlatformBundle(),
             new CoreBundle\CoreBundle(),
             new FOS\JsRoutingBundle\FOSJsRoutingBundle(),
-            new ADesigns\CalendarBundle\ADesignsCalendarBundle(),
+            new Stof\DoctrineExtensionsBundle\StofDoctrineExtensionsBundle(),
+            new Symfony\Bundle\AsseticBundle\AsseticBundle(),
         ];
         
         if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {

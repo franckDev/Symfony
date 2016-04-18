@@ -8,21 +8,23 @@
 		{% block body %}
 			<div class="table-responsive">
 	        	<table class="table">
-					{#{% for advert in listAdverts %}
-						{% for categorie in advert.categories %}
-		        		<tr>
+					{% for advert in listAdverts %}
+						<tr>
 							<td>Le <i>{{ advert.date | date('d/m/Y') }}</i><br>par {{ advert.author }}</td>
-							<td><h4>{{ advert.title }}<br><small>{{ categorie.name }}</small></h4></td>
+							<td><h4>{{ advert.title }}<br>
+						{% for categorie in advert.categories %}
+		        			<small>{{ categorie.name }}</small><br>
+						{% endfor %}
+							</h4></td>
 							<td class="end">{{ advert.content }}</td>
 						</tr>
-						{% endfor %}
-					{% endfor %}#}
+					{% endfor %}
 					{#<tr>
 						<td>Le <i>{{ advert.date | date('d/m/Y') }}</i><br>par {{ advert.author }}</td>
 						<td><h4>{{ advert.title }}</h4></td>
 						<td class="end">{{ advert.content }}</td>
 					</tr>#}
-					{% for image in images %}
+					{#{% for image in images %}
 						
 							{% if image.id is even %}
 						<tr>
@@ -32,7 +34,7 @@
 						</tr>
 							{% endif %}
 						
-					{% endfor %}
+					{% endfor %}#}
 				</table>
 			</div>
 		{% endblock %}

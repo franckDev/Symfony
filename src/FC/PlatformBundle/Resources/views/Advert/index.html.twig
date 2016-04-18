@@ -10,18 +10,43 @@
 
   <h2>Liste des annonces</h2>
 
-  <ul>
+  <table>
+    <tr>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
     {% for advert in listAdverts %}
-      <li>
-        <a href="{{ path('fc_platform_view', {'id': advert.id}) }}">
-          {{ advert.title }}
-        </a>
-        par {{ advert.author }},
-        le {{ advert.date|date('d/m/Y') }}
-      </li>
+      <tr>
+          <td>
+            <a href="{{ path('fc_platform_view', {'id': advert.id}) }}">{{ advert.title }}</a>
+          </td>
+          <td>
+            {% if advert.author is defined %}
+                {{ advert.author }}
+            {% else %}
+                Inconnu
+            {% endif %}
+          </td>
+          <td>
+              {{ advert.date|date('d/m/Y') }}
+          </td>  
+          <td>
+              {% for categorie in advert.categories %}
+                {{ categorie.name ~ ',' }}
+              {% endfor %}
+          </td>
+          <td>
+              <img width="125" height="50" src="{{ advert.image.url }}" alt="{{ advert.image.alt }}">
+          </td>   
+      </tr>
     {% else %}
-      <li>Pas (encore !) d'annonces</li>
+      <tr>
+        <td>Pas (encore !) d'annonces</td>
+      </tr>
     {% endfor %}
-  </ul>
-
+  
+  </table>
 {% endblock %}

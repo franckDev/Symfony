@@ -34,7 +34,7 @@ framework:
     fragments:       ~
     http_method_override: true
     assets: ~
-
+        
 # Twig Configuration
 twig:
     debug:            "%kernel.debug%"
@@ -70,3 +70,9 @@ swiftmailer:
     username:     flac5@wanadoo.fr
     password:     sultan
     # spool:     { type: memory }
+
+# Stof\DoctrineExtensionsBundle configuration
+stof_doctrine_extensions:
+    orm:
+        default:
+            sluggable: true

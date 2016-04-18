@@ -11,6 +11,11 @@
 		{% block stylesheets %}
 			{# On charge le CSS de bootstrap depuis le site directement #}
 			<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+			{% stylesheets 'bundles/fcplatform/css/*' %}
+		        <link rel="stylesheet" href="{{ asset_url }}" />
+		    {% endstylesheets %}
+			{# CSS Prod avec app.php (true) et app_dev.php (false)#}
+			{#<link rel="stylesheet" href="{{ asset('Bundles/FCPlatform/css/style.css') }}">#}
 		{% endblock %}
 		{% block javascript %}
 			{# Ajoutez ces lignes Javascript si vous comptez vous servir des fonctionnalités du Bootstrap Twitter #}
@@ -26,18 +31,19 @@
 			</div>
 
 		    <div class="row">
-		      	<div id="menu" class="col-sm-3">
+		      	<div id="menu" class="col-sm-2">
 		        	<h2>Les annonces</h2>
 			        <ul class="nav nav-pills nav-stacked">
-			          <li><a href="{{ path('corebundle_home') }}">Accueil</a></li>
-			          <li><a href="{{ path('fc_platform_add') }}">Ajouter une annonce</a></li>
+			          <li><a href="{{ path('fc_platform_home',{ 'page':'1'}) }}">Accueil</a></li>
+			          <li><a href="{{ path('fc_platform_add',{ 'new':'1' }) }}">Ajouter une annonce</a></li>
 			          <li><a href="{{ path('corebundle_contact') }}">Contact</a></li>
+			          <li><a href="{{ path('fc_platform_test') }}">Test</a></li>
 			        </ul>
 
 		        		<h2>Dernières annonces</h2>
 		        		{{ render(controller("FCPlatformBundle:Advert:menu", {'limit': 3})) }}
 		      	</div>
-		     	<div id="content" class="col-sm-9">
+		     	<div id="content" class="col-sm-10">
 		        	{% block body %}
 
 		        	{% endblock %}
