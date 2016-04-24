@@ -11,27 +11,42 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use FC\PlatformBundle\Form\AdvertType;
 
 class AdvertController extends Controller
 {
 	public function indexAction($page)
 	{
-		// On vérifie si la page est supérieure à 1
+		$page=1;
+		// On vérifie si la page est inférieure à 1
 		if($page < 1) {
 			throw new NotFoundHttpException('Page "'.$page.'" inexistante.');
 		}
-		// On récupère la liste de toutes les annonces
+
+		// Ici je fixe le nombre d'annonces par page à 3
+		// Mais bien sûr il faudrait utiliser un paramètre, et y accèder via 
+		// $this->container->getParameter('nbPerPage')
+		$nbPerPage = 6;
+
+		// On récupère notre objet paginator
 		$listAdverts = $this->getDoctrine()
 							->getManager()
 							->getRepository('FCPlatformBundle:Advert')
-							->getAdverts();
-		// echo"<pre>";					
-		// var_dump($listAdverts[0]);
-		// echo"</pre>";
-		// die();
+							->getAdverts($page, $nbPerPage);
+		
+		// On calcule le nombre total de pages grâce au count($listAdverts) qui retourne le nombre total d'annonces
+		$nbPages = ceil(count($listAdverts)/$nbPerPage);
+
+		// Si la page n'existe pas , on retourne une 404
+		if ($page > $nbPages) {
+			throw $this->createNotFoundException("La page ".$page." n'existe pas.");
+		}
+
 	    // Et on renvoie cette liste vers la vue
 	    return $this->render('FCPlatformBundle:Advert:index.html.twig', array(
-	      'listAdverts' => $listAdverts
+	      'listAdverts' => $listAdverts,
+	      'nbPages'		=> $nbPages,
+	      'page'		=> $page
 	    ));
 	}
 
@@ -66,18 +81,34 @@ class AdvertController extends Controller
 
 	public function addAction(Request $request)
 	{
-		// La gestion d'un formulaire est la suivante :
+		// On crée un objet Advert
+		$advert = new Advert();
 
-		if ($request->isMethod('POST')){
-			// Ici on s'occupera de la création du formulaire
+		// On crée le formulaire grâce au service form factory
+		$form = $this->createForm(AdvertType::class, $advert);
 
-			$request->getSession()->getFlashBag()->add('info', 'Annonce bien enregistrée.');
+		// On fait le lien Requête <-> Formulaire
+		$form->handleRequest($request);
 
-			// Puis on redirige vers la page de visualisation de cet article
-			return $this->redirect($this->generateUrl('fc_platform_view', array('id' => 1)));
+		// On vérifie que les valeurs entrées soient correctes
+		if ($form->isValid()){
+			// On l'enregistre notre objet $advert dans la base de données
+			$em = $this->getDoctrine()->getManager();
+			$em->persist($advert);
+			$em->flush();
+
+			$request->getSession()->getFlashBag()->add('notice', 'Annonce bien enregistrée.');
+
+			// Puis on redirige vers la page de visualisation de l'annonce nouvellement créée
+			return $this->redirect($this->generateUrl('fc_platform_view', array('id' => $advert->getId())));
 		}
-		// Si on n'est pas en POST, alors on affiche le formulaire
-		return $this->render('FCPlatformBundle:Advert:add.html.twig');
+		// Pour l'instant pas de candidatures, catégories, etc., on les gérera plus tard
+
+		// On passe la méthode createView() du formulaire à la vue
+		// afin qu'elle puisse afficher le formulaire toute seule
+		return $this->render('FCPlatformBundle:Advert:add.html.twig', array(
+			'form' => $form->createView(),
+		));
 	}
 
 	public function editAction($id)
@@ -93,13 +124,20 @@ class AdvertController extends Controller
 			throw $this->createNotFoundException("L'annonce d'id ".$id." n'existe pas.");
 		}
 
+		// On crée le formulaire grâce au service form factory
+		$form = $this->createForm(AdvertType::class, $advert);
+
 		// Ici on s'occupera de la création et de la gestion du formulaire
 
-		return $this->render('FCPlatformBundle:Advert:edit.html.twig',array('advert' => $advert));
+		return $this->render('FCPlatformBundle:Advert:edit.html.twig', array(
+			'form' => $form->createView(),
+			'advert' => $advert,
+		));
 	}
 
 	public function deleteAction($id, Request $request)
 	{
+		var_dump("ça va pas la tête !!");die();
 		// On récupère l'EntityManager
 		$em = $this->getDoctrine()->getManager();
 
